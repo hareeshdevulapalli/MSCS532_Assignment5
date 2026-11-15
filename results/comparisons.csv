@@ -1,0 +1,31 @@
+input,algorithm,n,comparisons,per_nlgn,partitions,max_depth,max_stack
+random,Deterministic,1000,10396,1.0432,666,21,7
+random,Randomized,1000,10626,1.0662,662,18,7
+random,Randomized 3-way,1000,17190,1.7249,679,17,6
+sorted,Deterministic,1000,499500,50.1215,999,998,1
+sorted,Randomized,1000,10487,1.0523,675,18,7
+sorted,Randomized 3-way,1000,18773,1.8837,671,22,6
+reverse,Deterministic,1000,499500,50.1215,999,998,1
+reverse,Randomized,1000,10889,1.0926,658,20,6
+reverse,Randomized 3-way,1000,17040,1.7099,662,19,6
+nearly-sorted,Deterministic,1000,88393,8.8696,800,146,3
+nearly-sorted,Randomized,1000,11688,1.1728,666,22,6
+nearly-sorted,Randomized 3-way,1000,16822,1.6880,664,19,6
+few-unique,Deterministic,1000,52939,5.3121,990,115,3
+few-unique,Randomized,1000,53549,5.3733,990,116,3
+few-unique,Randomized 3-way,1000,5295,0.5313,10,4,2
+random,Deterministic,4000,54238,1.1332,2663,24,8
+random,Randomized,4000,52312,1.0929,2689,23,8
+random,Randomized 3-way,4000,83613,1.7469,2658,28,8
+sorted,Deterministic,4000,7998000,167.1015,3999,3998,1
+sorted,Randomized,4000,53486,1.1175,2626,24,8
+sorted,Randomized 3-way,4000,89582,1.8716,2662,28,7
+reverse,Deterministic,4000,7998000,167.1015,3999,3998,1
+reverse,Randomized,4000,56587,1.1823,2650,24,8
+reverse,Randomized 3-way,4000,82835,1.7307,2668,26,8
+nearly-sorted,Deterministic,4000,396200,8.2778,3453,236,4
+nearly-sorted,Randomized,4000,54021,1.1287,2657,25,7
+nearly-sorted,Randomized 3-way,4000,83780,1.7504,2670,26,8
+few-unique,Deterministic,4000,815613,17.0405,3990,437,3
+few-unique,Randomized,4000,817078,17.0711,3990,437,3
+few-unique,Randomized 3-way,4000,23847,0.4982,10,4,2

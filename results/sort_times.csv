@@ -1,0 +1,121 @@
+input,algorithm,n,seconds
+random,Deterministic,1000,0.000469
+random,Randomized,1000,0.000640
+random,Randomized 3-way,1000,0.000870
+random,Deterministic,2000,0.000967
+random,Randomized,2000,0.001267
+random,Randomized 3-way,2000,0.001801
+random,Deterministic,4000,0.002054
+random,Randomized,4000,0.002562
+random,Randomized 3-way,4000,0.003742
+random,Deterministic,8000,0.004379
+random,Randomized,8000,0.005766
+random,Randomized 3-way,8000,0.008094
+random,Deterministic,16000,0.008981
+random,Randomized,16000,0.011866
+random,Randomized 3-way,16000,0.017766
+random,Deterministic,32000,0.022780
+random,Randomized,32000,0.026197
+random,Randomized 3-way,32000,0.038211
+random,Deterministic,64000,0.042849
+random,Randomized,64000,0.053617
+random,Randomized 3-way,64000,0.080203
+random,Deterministic,128000,0.091087
+random,Randomized,128000,0.116735
+random,Randomized 3-way,128000,0.165061
+sorted,Deterministic,1000,0.015851
+sorted,Randomized,1000,0.000543
+sorted,Randomized 3-way,1000,0.000811
+sorted,Deterministic,2000,0.064331
+sorted,Randomized,2000,0.001132
+sorted,Randomized 3-way,2000,0.001713
+sorted,Deterministic,4000,0.268933
+sorted,Randomized,4000,0.002532
+sorted,Randomized 3-way,4000,0.003851
+sorted,Deterministic,8000,1.152596
+sorted,Randomized,8000,0.005444
+sorted,Randomized 3-way,8000,0.008106
+sorted,Deterministic,16000,4.507581
+sorted,Randomized,16000,0.011259
+sorted,Randomized 3-way,16000,0.017479
+sorted,Deterministic,32000,
+sorted,Randomized,32000,0.023402
+sorted,Randomized 3-way,32000,0.036489
+sorted,Deterministic,64000,
+sorted,Randomized,64000,0.048852
+sorted,Randomized 3-way,64000,0.078633
+sorted,Deterministic,128000,
+sorted,Randomized,128000,0.099941
+sorted,Randomized 3-way,128000,0.164325
+reverse,Deterministic,1000,0.011642
+reverse,Randomized,1000,0.000559
+reverse,Randomized 3-way,1000,0.000762
+reverse,Deterministic,2000,0.045898
+reverse,Randomized,2000,0.001193
+reverse,Randomized 3-way,2000,0.001770
+reverse,Deterministic,4000,0.184949
+reverse,Randomized,4000,0.002529
+reverse,Randomized 3-way,4000,0.003714
+reverse,Deterministic,8000,0.792958
+reverse,Randomized,8000,0.005279
+reverse,Randomized 3-way,8000,0.008076
+reverse,Deterministic,16000,3.081889
+reverse,Randomized,16000,0.011044
+reverse,Randomized 3-way,16000,0.016851
+reverse,Deterministic,32000,
+reverse,Randomized,32000,0.023223
+reverse,Randomized 3-way,32000,0.035746
+reverse,Deterministic,64000,
+reverse,Randomized,64000,0.048881
+reverse,Randomized 3-way,64000,0.077256
+reverse,Deterministic,128000,
+reverse,Randomized,128000,0.101823
+reverse,Randomized 3-way,128000,0.165129
+nearly-sorted,Deterministic,1000,0.001570
+nearly-sorted,Randomized,1000,0.000554
+nearly-sorted,Randomized 3-way,1000,0.000807
+nearly-sorted,Deterministic,2000,0.007377
+nearly-sorted,Randomized,2000,0.001186
+nearly-sorted,Randomized 3-way,2000,0.001767
+nearly-sorted,Deterministic,4000,0.026139
+nearly-sorted,Randomized,4000,0.002498
+nearly-sorted,Randomized 3-way,4000,0.003702
+nearly-sorted,Deterministic,8000,0.029915
+nearly-sorted,Randomized,8000,0.005410
+nearly-sorted,Randomized 3-way,8000,0.008079
+nearly-sorted,Deterministic,16000,0.031753
+nearly-sorted,Randomized,16000,0.010894
+nearly-sorted,Randomized 3-way,16000,0.017322
+nearly-sorted,Deterministic,32000,0.106541
+nearly-sorted,Randomized,32000,0.023516
+nearly-sorted,Randomized 3-way,32000,0.036561
+nearly-sorted,Deterministic,64000,0.364542
+nearly-sorted,Randomized,64000,0.048878
+nearly-sorted,Randomized 3-way,64000,0.077640
+nearly-sorted,Deterministic,128000,0.915535
+nearly-sorted,Randomized,128000,0.099727
+nearly-sorted,Randomized 3-way,128000,0.161714
+few-unique,Deterministic,1000,0.001872
+few-unique,Randomized,1000,0.002102
+few-unique,Randomized 3-way,1000,0.000168
+few-unique,Deterministic,2000,0.007068
+few-unique,Randomized,2000,0.007571
+few-unique,Randomized 3-way,2000,0.000311
+few-unique,Deterministic,4000,0.026587
+few-unique,Randomized,4000,0.027943
+few-unique,Randomized 3-way,4000,0.000627
+few-unique,Deterministic,8000,0.103485
+few-unique,Randomized,8000,0.105972
+few-unique,Randomized 3-way,8000,0.001228
+few-unique,Deterministic,16000,0.408667
+few-unique,Randomized,16000,0.410401
+few-unique,Randomized 3-way,16000,0.002483
+few-unique,Deterministic,32000,1.613466
+few-unique,Randomized,32000,1.613227
+few-unique,Randomized 3-way,32000,0.004886
+few-unique,Deterministic,64000,6.638554
+few-unique,Randomized,64000,6.451559
+few-unique,Randomized 3-way,64000,0.010419
+few-unique,Deterministic,128000,
+few-unique,Randomized,128000,
+few-unique,Randomized 3-way,128000,0.020212
