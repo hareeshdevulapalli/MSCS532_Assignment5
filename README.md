@@ -18,7 +18,8 @@ randomization helps, and a discussion of the results, is in **[REPORT.md](REPORT
 | `quicksort.py` | `quick_sort`, `random_pivot_quick_sort`, `three_way_quick_sort`, the split functions (`lomuto_split`, `random_split`, `three_way_split`) and `SortTracker` |
 | `run_benchmarks.py` | Timing, comparison counts, spread of comparison counts over many runs, and recursion depth |
 | `test_quicksort.py` | 13 unit tests |
-| `chart_style.py` | Shared chart styling |
+| `plot_results.py` | Draws the charts in `results/` from the saved CSV files |
+| `plot_theme.py` | Colours, fonts and line styles used by the charts |
 | `results/` | CSV data, charts and terminal output from the last full run |
 
 ## Requirements
@@ -48,11 +49,17 @@ python3 run_benchmarks.py
 python3 run_benchmarks.py --quick
 ```
 
+```bash
+python3 plot_results.py
+```
+
 * `python3 quicksort.py` sorts a small example with each version and prints how deep the
   recursion goes on a sorted list.
 * `python3 run_benchmarks.py` runs the full benchmark (about a minute) and saves the CSV
   files, charts and `benchmark_output.txt` into `results/`.
 * `--quick` uses smaller sizes and is done in about 5 seconds.
+* `python3 plot_results.py` redraws the four charts from the CSV files already in `results/`,
+  without running the benchmark again.
 
 You can also call the functions directly:
 

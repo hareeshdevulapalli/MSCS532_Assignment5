@@ -36,6 +36,7 @@ import statistics
 import sys
 import time
 
+import plot_results
 from quicksort import (SortTracker, quick_sort, random_pivot_quick_sort,
                        three_way_quick_sort)
 
@@ -291,120 +292,6 @@ def depth_experiment(powers, rounds, log):
     return csv_rows
 
 
-# ----------------------------------------------------------------------
-# Charts
-# ----------------------------------------------------------------------
-
-def draw_charts(sizes, timings, compare_rows, spread, depth_rows):
-    try:
-        import matplotlib
-        matplotlib.use("Agg")
-        import matplotlib.pyplot as plt
-    except ImportError:
-        print("matplotlib not installed; skipping graphs")
-        return
-    import chart_style as style
-    style.setup(plt)
-    colour = {label: style.COLORS[k] for k, label in enumerate(ALGORITHMS)}
-    marker = {label: style.MARKERS[k] for k, label in enumerate(ALGORITHMS)}
-
-    # Chart 1: running time for each input type
-    fig, axes = plt.subplots(2, 3, figsize=(12, 7.2))
-    for ax, kind in zip(axes.flat, DISTRIBUTIONS):
-        for label in ALGORITHMS:
-            points = [(n, timings[(kind, label, n)] * 1000) for n in sizes
-                      if timings[(kind, label, n)] is not None]
-            if points:
-                xs, ys = zip(*points)
-                ax.plot(xs, ys, marker=marker[label], color=colour[label], label=label)
-        # grey guide lines for n lg n and n^2, starting at the smallest size
-        first_n = sizes[0]
-        start_ms = min(timings[(kind, lbl, first_n)] for lbl in ALGORITHMS) * 1000
-        ax.plot(sizes, [start_ms * (n * math.log2(n)) / (first_n * math.log2(first_n))
-                        for n in sizes],
-                ls=":", color=style.LIGHT_TEXT, lw=1, label="∝ n lg n")
-        ax.plot(sizes, [start_ms * (n / first_n) ** 2 for n in sizes],
-                ls="--", color=style.LIGHT_TEXT, lw=1, label="∝ n²")
-        slowest = max(timings[(kind, lbl, n)] or 0
-                      for lbl in ALGORITHMS for n in sizes) * 1000
-        ax.set_ylim(start_ms / 2, slowest * 3)
-        ax.set_xscale("log", base=2)
-        ax.set_yscale("log")
-        ax.set_title(kind)
-        ax.set_xlabel("n (list size)")
-        ax.set_ylabel("time (ms)")
-    axes.flat[0].legend(loc="upper left")
-    # bottom-right: comparisons / (n lg n) at the biggest n we counted
-    ax = axes.flat[5]
-    biggest = max(r["n"] for r in compare_rows)
-    bar_w = 0.27
-    for k, label in enumerate(ALGORITHMS):
-        heights = [next(float(r["per_nlgn"]) for r in compare_rows
-                        if r["n"] == biggest and r["input"] == kind
-                        and r["algorithm"] == label)
-                   for kind in DISTRIBUTIONS]
-        ax.bar([j + (k - 1) * bar_w for j in range(len(DISTRIBUTIONS))], heights,
-               bar_w, color=colour[label], label=label)
-    ax.axhline(avg_compares_formula(biggest) / (biggest * math.log2(biggest)),
-               color=style.LIGHT_TEXT, ls=":", lw=1)
-    ax.set_yscale("log")
-    ax.set_xticks(range(len(DISTRIBUTIONS)))
-    ax.set_xticklabels(DISTRIBUTIONS, rotation=20)
-    ax.set_title(f"comparisons / (n lg n), n = {biggest:,}")
-    ax.grid(axis="x", visible=False)
-    fig.suptitle("Quicksort running time by input distribution (log–log)",
-                 fontweight="bold", color=style.TEXT)
-    fig.tight_layout()
-    fig.savefig(os.path.join(RESULTS_DIR, "sort_times.png"), dpi=150)
-    plt.close(fig)
-
-    # Chart 2: histogram of comparison counts
-    random_on_sorted, fixed_on_shuffled, predicted_mean, _, n = spread
-    fig, ax = plt.subplots(figsize=(8, 4.2))
-    lowest = min(random_on_sorted + fixed_on_shuffled)
-    highest = max(random_on_sorted + fixed_on_shuffled)
-    edges = [lowest + (highest - lowest) * k / 40 for k in range(41)]
-    ax.hist(random_on_sorted, bins=edges, alpha=0.6, color=colour["Randomized"],
-            label="Randomized, same sorted input every time")
-    ax.hist(fixed_on_shuffled, bins=edges, alpha=0.6, color=colour["Deterministic"],
-            label="Deterministic, a new random permutation each time")
-    ax.axvline(predicted_mean, color=style.TEXT, lw=1.2, ls="--",
-               label=f"theory mean 2(n+1)Hₙ − 4n = {predicted_mean:,.0f}")
-    ax.set_xlabel("number of comparisons")
-    ax.set_ylabel("trials")
-    ax.legend(loc="upper right")
-    ax.set_title(f"Comparison counts over {len(random_on_sorted):,} runs, n = {n:,}")
-    fig.tight_layout()
-    fig.savefig(os.path.join(RESULTS_DIR, "comparison_distribution.png"), dpi=150)
-    plt.close(fig)
-
-    # Chart 3: recursion depth
-    fig, ax = plt.subplots(figsize=(8, 4.2))
-    ns = [r["n"] for r in depth_rows]
-    ax.plot(ns, [r["deterministic_depth"] for r in depth_rows], marker="o",
-            color=colour["Deterministic"], label="Deterministic on sorted input (n − 2)")
-    ax.plot(ns, [r["mean_depth"] for r in depth_rows], marker="s",
-            color=colour["Randomized"], label="Randomized on sorted input, mean")
-    ax.plot(ns, [r["max_depth"] for r in depth_rows], marker="s", ls="none",
-            mfc="none", color=colour["Randomized"], label="Randomized, worst trial")
-    ax.plot(ns, [r["ref_4_311_ln_n"] for r in depth_rows], ls=":",
-            color=style.LIGHT_TEXT, lw=1, label="4.311 ln n")
-    ax.plot(ns, [r["max_stack"] for r in depth_rows], marker="^",
-            color=colour["Randomized 3-way"],
-            label="Real call-stack depth (smaller-side recursion)")
-    ax.plot(ns, [r["lg_n"] for r in depth_rows], ls="--", color=style.LIGHT_TEXT,
-            lw=1, label="lg n")
-    ax.set_xscale("log", base=2)
-    ax.set_yscale("log")
-    ax.set_xlabel("n (list size)")
-    ax.set_ylabel("recursion depth")
-    ax.set_title("Recursion depth: Θ(n) for bad pivots, Θ(lg n) with random pivots")
-    ax.legend(loc="upper left")
-    fig.tight_layout()
-    fig.savefig(os.path.join(RESULTS_DIR, "recursion_depth.png"), dpi=150)
-    plt.close(fig)
-
-
 def save_csv(filename, rows):
     if not rows:
         return
@@ -457,7 +344,7 @@ def main():
               for k, (a, b) in enumerate(zip(spread[0], spread[1]))])
     with open(os.path.join(RESULTS_DIR, "benchmark_output.txt"), "w") as f:
         f.write("\n".join(output_lines) + "\n")
-    draw_charts(sizes, timings, compare_rows, spread, depth_rows)
+    plot_results.draw_all()   # charts are drawn from the CSVs just saved
     print(f"\nResults written to {RESULTS_DIR}")
 
 

@@ -421,13 +421,12 @@ it should be about 2.1 for n lg n and 4.0 for n²:
 ![Running time by input distribution](results/sort_times.png)
 
 *Each panel uses log–log axes, so a line with slope 1 is roughly n lg n and slope 2 is n². The
-grey dotted and dashed lines are n lg n and n² for reference. The bottom-right panel shows
-comparisons divided by n lg n at n = 4,000 on a log scale. The dotted line there is the
-theoretical value for a shuffled list, 1.149.*
+grey dotted and dashed lines are n lg n and n² for reference. "Stopped" marks where a series was
+cut off because a single run took more than 2 seconds.*
 
-(In the charts and the raw output, "Deterministic" means the fixed-pivot `quick_sort`,
+(In the raw output and CSV files, "Deterministic" means the fixed-pivot `quick_sort`,
 "Randomized" means `random_pivot_quick_sort` and "Randomized 3-way" means
-`three_way_quick_sort`.)
+`three_way_quick_sort`. The charts use the function names directly.)
 
 ### 4.3 Comparisons
 
@@ -442,6 +441,11 @@ case and 2(n+1)H<sub>n</sub> − 4n = 54,989 on average):
 | nearly-sorted | 396,200 (8.28) | 54,021 (1.13) | 83,780 (1.75) |
 | few-unique | 815,613 (17.0) | 817,078 (17.1) | **23,847** (0.50) |
 
+![Comparisons per input type](results/comparison_counts.png)
+
+*Comparisons divided by n lg n, on a log scale. The dashed line is the average-case value from
+the formula, 1.15 at this size.*
+
 How the comparison counts spread out over 1,000 runs at n = 2,000:
 
 | | mean | sd | min | max | max / mean |
@@ -452,6 +456,11 @@ How the comparison counts spread out over 1,000 runs at n = 2,000:
 | Fixed pivot, sorted list | 1,999,000 | – | | | 81 |
 
 ![Distribution of comparison counts](results/comparison_distribution.png)
+
+*The shaded band is the theoretical mean ± one standard deviation, and the grey curve is a
+normal curve with that mean and standard deviation. Both histograms are slightly skewed to the
+right, which is known for quick sort's comparison count: a few unlucky runs go long, but none
+come anywhere near the worst case.*
 
 ### 4.4 Discussion
 
